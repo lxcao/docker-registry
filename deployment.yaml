@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: fastapidemo
+  name: fastapidemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapidemo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fastapidemo
+    spec:
+      containers:
+      - image: localhost:5000/lxcao/python-web-fastapi-docker_core_api:v1
+        #imagePullPolicy: IfNotPresent
+        name: python-web-fastapi-docker-core-api-c8r2b
+        resources: {}
+status: {}
