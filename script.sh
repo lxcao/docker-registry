@@ -2,7 +2,7 @@
  # @Author: clingxin
  # @Date: 2021-05-08 15:50:29
  # @LastEditors: clingxin
- # @LastEditTime: 2021-05-10 09:04:54
+ # @LastEditTime: 2021-05-10 12:57:43
  # @FilePath: /docker-registry/script.sh
 ###
 #create and start registry and dashboard
@@ -69,3 +69,18 @@ kubectl delete all --all -n lxcao
  #followed https://docs.docker.com/registry/insecure/
  # Warning  Failed     12s   kubelet            Failed to pull image "192.168.1.3:5000/lxcao/python-web-fastapi-docker_core_api:v1": rpc error: code = Unknown desc = Error response from daemon: Get https://192.168.1.3:5000/v2/: http: server gave HTTP response to HTTPS client
  # Warning  Failed     12s   kubelet            Error: ErrImagePull
+
+ ##########################愉快地分割线#########################
+ #########For registry client, in this case this is minikube
+ minikube stop
+ #must delete, delete, delete minikube
+ minikube delete
+ #re-start with insecure registry
+ minikube start --insecure-registry "192.168.1.3:5000"
+ #step into docker env within minikube, it's not the one in local machine
+ eval $(minikube docker-env)
+ #check if add the insecure registry into docker env
+ docker info
+ #########For registry server, in this case this is registry server running in local docker
+ # add "insecure-registries":["192.168.1.3:5000"] into ./docker/daemon.json
+ #restart docker

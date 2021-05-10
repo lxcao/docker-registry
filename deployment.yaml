@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - image: 192.168.1.3:5000/lxcao/python-web-fastapi-docker_core_api:v1
-        #imagePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent
         name: python-web-fastapi-docker-core-api-c8r2b
         resources: {}
 status: {}
