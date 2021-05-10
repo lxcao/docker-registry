@@ -2,7 +2,7 @@
  # @Author: clingxin
  # @Date: 2021-05-08 15:50:29
  # @LastEditors: clingxin
- # @LastEditTime: 2021-05-09 20:49:04
+ # @LastEditTime: 2021-05-10 09:04:54
  # @FilePath: /docker-registry/script.sh
 ###
 #create and start registry and dashboard
@@ -13,7 +13,7 @@ docker tag python-web-fastapi-docker_core_api:latest localhost:5000/lxcao/python
 docker push localhost:5000/lxcao/python-web-fastapi-docker_core_api:v1
 #start minikube
 minikube start
-minikube start --insecure-registry='localhost:5000'
+minikube start --insecure-registry "192.168.1.3:5000"
 #following minikube docs
 minikube start --insecure-registry "10.0.0.0/24"
 #connected local registry
@@ -63,3 +63,9 @@ kubectl delete all --all -n lxcao
  docker run --rm -it --network=host alpine ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
  #check
  curl http://127.0.0.1:5000/v2/_catalog
+
+ ##########################悲伤地分割线#########################
+ #have problem that connect to docker registry
+ #followed https://docs.docker.com/registry/insecure/
+ # Warning  Failed     12s   kubelet            Failed to pull image "192.168.1.3:5000/lxcao/python-web-fastapi-docker_core_api:v1": rpc error: code = Unknown desc = Error response from daemon: Get https://192.168.1.3:5000/v2/: http: server gave HTTP response to HTTPS client
+ # Warning  Failed     12s   kubelet            Error: ErrImagePull
